@@ -1,0 +1,235 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+env:
+  NODE_VERSION: '20.x'
+  EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+jobs:
+  # Job 1: Tests et vérifications de code
+  test-and-lint:
+    name: Tests et Vérifications
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Installation des dépendances
+        run: npm ci
+        
+      - name: Vérification TypeScript
+        run: npm run type-check
+        
+      - name: Linting ESLint
+        run: npm run lint
+        
+      - name: Tests unitaires avec couverture
+        run: npm run test:ci
+        
+      - name: Upload du rapport de couverture
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          
+      - name: Rapport de couverture vers Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/coverage-final.json
+          fail_ci_if_error: true
+
+  # Job 2: Tests E2E avec Detox
+  e2e-tests:
+    name: Tests E2E Detox
+    runs-on: macos-latest
+    needs: test-and-lint
+    
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Installation des dépendances
+        run: npm ci
+        
+      - name: Setup EAS CLI
+        run: npm install -g eas-cli
+        
+      - name: Cache Expo
+        uses: actions/cache@v4
+        with:
+          path: ~/.expo
+          key: ${{ runner.os }}-expo-${{ hashFiles('**/package-lock.json') }}
+          
+      - name: Build Detox
+        run: |
+          npx detox build --configuration ios.sim.debug
+        
+      - name: Run tests E2E
+        run: |
+          npx detox test --configuration ios.sim.debug --cleanup
+
+  # Job 3: Build Preview avec EAS
+  build-preview:
+    name: Build Preview EAS
+    runs-on: ubuntu-latest
+    needs: [test-and-lint]
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Installation des dépendances
+        run: npm ci
+        
+      - name: Setup EAS CLI
+        run: npm install -g eas-cli
+        
+      - name: Authentification EAS
+        run: eas login --token ${{ secrets.EXPO_TOKEN }}
+        
+      - name: Build Preview
+        run: npm run build:preview
+        
+      - name: Commentaire PR avec lien de build
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ Build Preview EAS terminé avec succès!'
+            })
+
+  # Job 4: Build Production avec EAS
+  build-production:
+    name: Build Production EAS
+    runs-on: ubuntu-latest
+    needs: [test-and-lint, e2e-tests]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Installation des dépendances
+        run: npm ci
+        
+      - name: Setup EAS CLI
+        run: npm install -g eas-cli
+        
+      - name: Authentification EAS
+        run: eas login --token ${{ secrets.EXPO_TOKEN }}
+        
+      - name: Build Production iOS et Android
+        run: npm run build:production
+        
+      - name: Notification de succès
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: release } = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: `build-${context.sha.substring(0, 7)}`,
+              name: `Production Build ${new Date().toISOString()}`,
+              body: `Build de production généré automatiquement depuis ${context.sha}`,
+              draft: false,
+              prerelease: false
+            });
+            console.log(`Release créée: ${release.html_url}`);
+
+  # Job 5: Analyse de sécurité
+  security-scan:
+    name: Analyse de Sécurité
+    runs-on: ubuntu-latest
+    needs: test-and-lint
+    
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Audit npm
+        run: npm audit --audit-level=moderate
+        
+      - name: Scan OWASP Dependency Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: 'EcoRun'
+          path: '.'
+          format: 'HTML'
+          
+      - name: Upload rapport de sécurité
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-report
+          path: reports/
+
+  # Job 6: Analyse de performance
+  performance-check:
+    name: Analyse de Performance
+    runs-on: ubuntu-latest
+    needs: test-and-lint
+    
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Installation des dépendances
+        run: npm ci
+        
+      - name: Analyse de la taille du bundle
+        run: |
+          npx expo export --platform all --output-dir dist
+          echo "## 📊 Rapport de taille du bundle" >> $GITHUB_STEP_SUMMARY
+          echo "| Platform | Size |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|------|" >> $GITHUB_STEP_SUMMARY
+          echo "| iOS | $(du -sh dist/ios | cut -f1) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Android | $(du -sh dist/android | cut -f1) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Web | $(du -sh dist/web | cut -f1) |" >> $GITHUB_STEP_SUMMARY
