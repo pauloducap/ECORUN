@@ -45,6 +45,11 @@ Projet réalisé dans le cadre du M2 - Développement d'applications logicielles
 
 ### Étapes d'installation
 
+### Résumer rapide 
+```bash
+npm install
+```
+
 1. Cloner le projet
 ```bash
 git clone [url-du-repo]
@@ -55,8 +60,12 @@ cd project
 ```bash
 npm install
 ```
+PRENDRE SUR MYCERTIF MON FICHIER .ENV (contient mes clés) et l'ajouter dans le projet
+```bash
+npx expo start --clear
+```
 
-3. Configurer Supabase
+3. Configurer Supabase ( SINON PRENDRE SUR MYCERTIF MON FICHIER .ENV (contient mes clés) et l'ajouter dans le projet )
 - Créer un projet sur [supabase.com](https://supabase.com)
 - Récupérer l'URL et la clé anon du projet
 - Les ajouter dans le fichier `.env` (voir `.env.example`)
