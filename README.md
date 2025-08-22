@@ -43,12 +43,19 @@ Projet réalisé dans le cadre du M2 - Développement d'applications logicielles
 - npm
 - Compte Supabase (gratuit)
 
-### Étapes d'installation
+### Étapes d'installation Rapide
 
 ### Résumer rapide 
 ```bash
 npm install
 ```
+PRENDRE SUR MYCERTIF MON FICHIER .ENV (contient mes clés) et l'ajouter dans le projet
+```bash
+npx expo start --clear
+```
+### FIN du Résumer rapide
+
+### Étapes d'installation 
 
 1. Cloner le projet
 ```bash
@@ -60,10 +67,7 @@ cd project
 ```bash
 npm install
 ```
-PRENDRE SUR MYCERTIF MON FICHIER .ENV (contient mes clés) et l'ajouter dans le projet
-```bash
-npx expo start --clear
-```
+
 
 3. Configurer Supabase ( SINON PRENDRE SUR MYCERTIF MON FICHIER .ENV (contient mes clés) et l'ajouter dans le projet )
 - Créer un projet sur [supabase.com](https://supabase.com)
