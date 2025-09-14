@@ -284,11 +284,11 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: defaultColors.gray100,
+    backgroundColor: defaultColors.white,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: spacing.xxl,
-  },
+    shadowColor: defaultColors.black,
   emptyTitle: {
     fontWeight: typography.fontWeight.semibold,
     marginBottom: spacing.sm,

@@ -186,11 +186,11 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: colors.white,
+    backgroundColor: defaultColors.white,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: spacing.xl,
-    shadowColor: colors.black,
+    shadowColor: defaultColors.black,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -202,12 +202,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: typography.fontSize.xxxl,
     fontWeight: typography.fontWeight.bold,
-    color: colors.gray800,
+    color: defaultColors.gray800,
     marginBottom: spacing.sm,
   },
   subtitle: {
     fontSize: typography.fontSize.base,
-    color: colors.gray500,
+    color: defaultColors.gray500,
     textAlign: 'center',
     lineHeight: typography.lineHeight.relaxed * typography.fontSize.base,
   },
@@ -217,14 +217,14 @@ const styles = StyleSheet.create({
   inputGroup: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: defaultColors.white,
     borderRadius: borderRadius.md,
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.md,
     marginBottom: spacing.lg,
     borderWidth: 1,
-    borderColor: colors.border,
-    shadowColor: colors.black,
+    borderColor: defaultColors.border,
+    shadowColor: defaultColors.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -239,17 +239,17 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: typography.fontSize.base,
-    color: colors.gray800,
+    color: defaultColors.gray800,
   },
   submitButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: defaultColors.primary,
     borderRadius: borderRadius.md,
     paddingVertical: spacing.lg,
     marginTop: spacing.lg,
-    shadowColor: colors.primary,
+    shadowColor: defaultColors.primary,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   submitButtonText: {
-    color: colors.white,
+    color: defaultColors.white,
     fontSize: typography.fontSize.lg,
     fontWeight: typography.fontWeight.semibold,
     marginLeft: spacing.sm,
@@ -274,12 +274,12 @@ const styles = StyleSheet.create({
   },
   toggleText: {
     fontSize: typography.fontSize.base,
-    color: colors.gray500,
+    color: defaultColors.gray500,
     marginRight: spacing.xs,
   },
   toggleLink: {
     fontSize: typography.fontSize.base,
-    color: colors.primary,
+    color: defaultColors.primary,
     fontWeight: typography.fontWeight.semibold,
   },
 });

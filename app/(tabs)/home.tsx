@@ -356,19 +356,19 @@ const styles = StyleSheet.create({
   heroTitle: {
     fontSize: 36,
     fontWeight: typography.fontWeight.extrabold,
-    color: colors.gray800,
+    color: defaultColors.gray800,
     marginBottom: spacing.sm,
   },
   heroSubtitle: {
     fontSize: typography.fontSize.lg,
     fontWeight: typography.fontWeight.semibold,
-    color: colors.primary,
+    color: defaultColors.primary,
     marginBottom: spacing.lg,
     textAlign: 'center',
   },
   heroDescription: {
     fontSize: typography.fontSize.base,
-    color: colors.gray500,
+    color: defaultColors.gray500,
     textAlign: 'center',
     lineHeight: typography.lineHeight.relaxed * typography.fontSize.base,
     marginBottom: spacing.xxl,
@@ -376,7 +376,7 @@ const styles = StyleSheet.create({
   heroImageContainer: {
     borderRadius: borderRadius.lg,
     overflow: 'hidden',
-    shadowColor: colors.black,
+    shadowColor: defaultColors.black,
     shadowOffset: {
       width: 0,
       height: 8,
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold,
-    color: colors.gray800,
+    color: defaultColors.gray800,
     marginBottom: spacing.lg,
   },
   statsGrid: {
@@ -405,12 +405,12 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: defaultColors.white,
     borderRadius: borderRadius.md,
     padding: spacing.lg,
     marginHorizontal: spacing.xs,
     alignItems: 'center',
-    shadowColor: colors.black,
+    shadowColor: defaultColors.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -419,7 +419,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: defaultColors.border,
   },
   statValue: {
     fontSize: typography.fontSize.xxl,
@@ -428,7 +428,7 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontSize: typography.fontSize.xs,
-    color: colors.gray500,
+    color: defaultColors.gray500,
     textAlign: 'center',
   },
   activityStatsGrid: {
@@ -437,11 +437,11 @@ const styles = StyleSheet.create({
   },
   activityStatCard: {
     flex: 0.32,
-    backgroundColor: colors.white,
+    backgroundColor: defaultColors.white,
     borderRadius: borderRadius.md,
     padding: spacing.lg,
     alignItems: 'center',
-    shadowColor: colors.black,
+    shadowColor: defaultColors.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -450,7 +450,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: defaultColors.border,
   },
   activityStatIcon: {
     width: 32,
@@ -463,12 +463,12 @@ const styles = StyleSheet.create({
   activityStatValue: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold,
-    color: colors.gray800,
+    color: defaultColors.gray800,
     marginBottom: spacing.xs,
   },
   activityStatLabel: {
     fontSize: typography.fontSize.xs,
-    color: colors.gray500,
+    color: defaultColors.gray500,
     textAlign: 'center',
   },
   benefitsSection: {
@@ -478,11 +478,11 @@ const styles = StyleSheet.create({
   benefitCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: defaultColors.white,
     borderRadius: borderRadius.md,
     padding: spacing.lg,
     marginBottom: spacing.md,
-    shadowColor: colors.black,
+    shadowColor: defaultColors.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -491,7 +491,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: defaultColors.border,
   },
   benefitIcon: {
     width: 48,
@@ -507,12 +507,12 @@ const styles = StyleSheet.create({
   benefitTitle: {
     fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.semibold,
-    color: colors.gray800,
+    color: defaultColors.gray800,
     marginBottom: spacing.xs,
   },
   benefitDescription: {
     fontSize: typography.fontSize.sm,
-    color: colors.gray500,
+    color: defaultColors.gray500,
     lineHeight: typography.lineHeight.normal * typography.fontSize.sm,
   },
   activitySection: {
@@ -538,14 +538,14 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   activityTitle: {
-    color: colors.white,
+    color: defaultColors.white,
     fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.bold,
     marginTop: spacing.md,
     marginBottom: spacing.xs,
   },
   activitySubtitle: {
-    color: colors.white,
+    color: defaultColors.white,
     fontSize: typography.fontSize.xs,
     opacity: 0.9,
     textAlign: 'center',
@@ -555,10 +555,10 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.xxl,
   },
   formulaCard: {
-    backgroundColor: colors.white,
+    backgroundColor: defaultColors.white,
     borderRadius: borderRadius.md,
     padding: spacing.xl,
-    shadowColor: colors.black,
+    shadowColor: defaultColors.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -567,7 +567,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: defaultColors.border,
   },
   formulaItem: {
     flexDirection: 'row',
@@ -581,12 +581,12 @@ const styles = StyleSheet.create({
   formulaTitle: {
     fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.semibold,
-    color: colors.gray800,
+    color: defaultColors.gray800,
     marginBottom: spacing.xs,
   },
   formulaDescription: {
     fontSize: typography.fontSize.sm,
-    color: colors.gray500,
+    color: defaultColors.gray500,
     lineHeight: typography.lineHeight.normal * typography.fontSize.sm,
   },
   ctaSection: {
@@ -598,11 +598,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.success,
+    backgroundColor: defaultColors.success,
     paddingVertical: spacing.lg,
     paddingHorizontal: spacing.xxxl,
     borderRadius: borderRadius.lg,
-    shadowColor: colors.success,
+    shadowColor: defaultColors.success,
     shadowOffset: {
       width: 0,
       height: 8,
@@ -614,20 +614,20 @@ const styles = StyleSheet.create({
     minWidth: 250,
   },
   startButtonText: {
-    color: colors.white,
+    color: defaultColors.white,
     fontSize: typography.fontSize.lg,
     fontWeight: typography.fontWeight.bold,
     marginLeft: spacing.sm,
   },
   ctaSubtext: {
     fontSize: typography.fontSize.sm,
-    color: colors.gray500,
+    color: defaultColors.gray500,
     textAlign: 'center',
     lineHeight: typography.lineHeight.normal * typography.fontSize.sm,
   },
   loadingText: {
     fontSize: typography.fontSize.base,
-    color: colors.gray500,
+    color: defaultColors.gray500,
     textAlign: 'center',
     fontStyle: 'italic',
   },
