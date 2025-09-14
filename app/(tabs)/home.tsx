@@ -24,7 +24,7 @@ import {
 import { ACTIVITY_CONFIG } from '@/constants/activities';
 import { activityService } from '@/lib/supabase';
 import { useAuth } from '@/hooks/useAuth';
-import colors from '@/styles/colors';
+import defaultColors from '@/styles/colors';
 import { spacing, borderRadius } from '@/styles/spacing';
 import { typography } from '@/styles/typography';
 import { debugSupabase } from '@/lib/debug';
@@ -120,19 +120,19 @@ export default function Home() {
       icon: Leaf,
       title: 'Réduction CO2',
       description: 'Calculez vos économies de carbone en temps réel',
-      color: colors.success,
+      color: defaultColors.success,
     },
     {
       icon: Heart,
       title: 'Espérance de vie',
       description: '1h de course = 7h de vie gagnées',
-      color: colors.error,
+      color: defaultColors.error,
     },
     {
       icon: Car,
       title: 'Alternative voiture',
       description: 'Comparez vos trajets écologiques',
-      color: colors.secondary,
+      color: defaultColors.secondary,
     },
     {
       icon: Timer,
@@ -143,7 +143,7 @@ export default function Home() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: defaultColors.background }]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Hero Section */}
         <View style={styles.heroSection}>
@@ -330,14 +330,13 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
   },
   heroSection: {
-    backgroundColor: colors.white,
+    backgroundColor: defaultColors.white,
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.xxxl,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: defaultColors.border,
   },
   heroContent: {
     alignItems: 'center',
