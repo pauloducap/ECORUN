@@ -7,7 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { settingsService } from '@/lib/settings';
 import Auth from './auth';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
-import { colors } from '@/styles/colors';
+import colors from '@/styles/colors';
 import { spacing } from '@/styles/spacing';
 import { typography } from '@/styles/typography';
 
