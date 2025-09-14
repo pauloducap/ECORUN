@@ -289,6 +289,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: spacing.xxl,
     shadowColor: defaultColors.black,
+  },
   emptyTitle: {
     fontWeight: typography.fontWeight.semibold,
     marginBottom: spacing.sm,
