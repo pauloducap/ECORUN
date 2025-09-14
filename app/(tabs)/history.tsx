@@ -15,7 +15,7 @@ import { Activity as ActivityType } from '@/lib/supabase';
 import { ActivityCard } from '@/components/ActivityCard';
 import { activityService } from '@/lib/supabase';
 import { useAuth } from '@/hooks/useAuth';
-import { colors } from '@/styles/colors';
+import { useTheme } from '@/hooks/useTheme';
 import { spacing, borderRadius } from '@/styles/spacing';
 import { typography } from '@/styles/typography';
 
@@ -24,6 +24,7 @@ type FilterType = 'all' | 'running' | 'biking';
 export default function History() {
   const router = useRouter();
   const { user } = useAuth();
+  const { colors, fontSizeMultiplier } = useTheme();
   const [activities, setActivities] = useState<ActivityType[]>([]);
   const [filteredActivities, setFilteredActivities] = useState<ActivityType[]>(
     []
@@ -84,8 +85,16 @@ export default function History() {
       <View style={styles.emptyIcon}>
         <Activity size={48} color={colors.gray300} />
       </View>
-      <Text style={styles.emptyTitle}>Aucune activité</Text>
-      <Text style={styles.emptyDescription}>
+      <Text style={[styles.emptyTitle, { 
+        color: colors.gray800, 
+        fontSize: typography.fontSize.xl * fontSizeMultiplier 
+      }]}>
+        Aucune activité
+      </Text>
+      <Text style={[styles.emptyDescription, { 
+        color: colors.gray500, 
+        fontSize: typography.fontSize.base * fontSizeMultiplier 
+      }]}>
         Commencez votre première activité{'\n'}pour voir vos statistiques ici
       </Text>
     </View>
@@ -94,27 +103,37 @@ export default function History() {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Historique</Text>
+      <View style={[styles.header, { backgroundColor: colors.white, borderBottomColor: colors.border }]}>
+        <Text style={[styles.headerTitle, { 
+          color: colors.gray800, 
+          fontSize: typography.fontSize.xxl * fontSizeMultiplier 
+        }]}>
+          Historique
+        </Text>
         <TouchableOpacity style={styles.filterButton}>
           <Filter size={20} color={colors.gray500} />
         </TouchableOpacity>
       </View>
 
       {/* Filter Tabs */}
-      <View style={styles.filterContainer}>
+      <View style={[styles.filterContainer, { backgroundColor: colors.white, borderBottomColor: colors.border }]}>
         <TouchableOpacity
           style={[
-            styles.filterTab,
+            [styles.filterTab, { backgroundColor: colors.gray100 }],
             activeFilter === 'all' && styles.filterTabActive,
+            activeFilter === 'all' && { backgroundColor: colors.primary },
           ]}
           onPress={() => setActiveFilter('all')}
           activeOpacity={0.7}
         >
           <Text
             style={[
-              styles.filterTabText,
+              [styles.filterTabText, { 
+                color: colors.gray500, 
+                fontSize: typography.fontSize.sm * fontSizeMultiplier 
+              }],
               activeFilter === 'all' && styles.filterTabTextActive,
+              activeFilter === 'all' && { color: colors.white },
             ]}
           >
             Toutes
@@ -123,8 +142,9 @@ export default function History() {
 
         <TouchableOpacity
           style={[
-            styles.filterTab,
+            [styles.filterTab, { backgroundColor: colors.gray100 }],
             activeFilter === 'running' && styles.filterTabActive,
+            activeFilter === 'running' && { backgroundColor: colors.primary },
           ]}
           onPress={() => setActiveFilter('running')}
           activeOpacity={0.7}
@@ -135,8 +155,12 @@ export default function History() {
           />
           <Text
             style={[
-              styles.filterTabText,
+              [styles.filterTabText, { 
+                color: colors.gray500, 
+                fontSize: typography.fontSize.sm * fontSizeMultiplier 
+              }],
               activeFilter === 'running' && styles.filterTabTextActive,
+              activeFilter === 'running' && { color: colors.white },
             ]}
           >
             Course
@@ -145,8 +169,9 @@ export default function History() {
 
         <TouchableOpacity
           style={[
-            styles.filterTab,
+            [styles.filterTab, { backgroundColor: colors.gray100 }],
             activeFilter === 'biking' && styles.filterTabActive,
+            activeFilter === 'biking' && { backgroundColor: colors.primary },
           ]}
           onPress={() => setActiveFilter('biking')}
           activeOpacity={0.7}
@@ -157,8 +182,12 @@ export default function History() {
           />
           <Text
             style={[
-              styles.filterTabText,
+              [styles.filterTabText, { 
+                color: colors.gray500, 
+                fontSize: typography.fontSize.sm * fontSizeMultiplier 
+              }],
               activeFilter === 'biking' && styles.filterTabTextActive,
+              activeFilter === 'biking' && { color: colors.white },
             ]}
           >
             Vélo
@@ -176,7 +205,12 @@ export default function History() {
       >
         {loading ? (
           <View style={styles.loadingContainer}>
-            <Text style={styles.loadingText}>Chargement des activités...</Text>
+            <Text style={[styles.loadingText, { 
+              color: colors.gray500, 
+              fontSize: typography.fontSize.base * fontSizeMultiplier 
+            }]}>
+              Chargement des activités...
+            </Text>
           </View>
         ) : filteredActivities.length === 0 ? (
           renderEmptyState()
@@ -199,7 +233,6 @@ export default function History() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
   },
   header: {
     flexDirection: 'row',
@@ -207,14 +240,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.lg,
-    backgroundColor: colors.white,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
   },
   headerTitle: {
-    fontSize: typography.fontSize.xxl,
     fontWeight: typography.fontWeight.bold,
-    color: colors.gray800,
   },
   filterButton: {
     padding: spacing.sm,
@@ -223,9 +252,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.lg,
-    backgroundColor: colors.white,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
   },
   filterTab: {
     flexDirection: 'row',
@@ -234,19 +261,10 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
     borderRadius: borderRadius.xl,
     marginRight: spacing.md,
-    backgroundColor: colors.gray100,
-  },
-  filterTabActive: {
-    backgroundColor: colors.primary,
   },
   filterTabText: {
-    fontSize: typography.fontSize.sm,
     fontWeight: typography.fontWeight.medium,
-    color: colors.gray500,
     marginLeft: spacing.xs,
-  },
-  filterTabTextActive: {
-    color: colors.white,
   },
   scrollView: {
     flex: 1,
@@ -271,14 +289,10 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xxl,
   },
   emptyTitle: {
-    fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.semibold,
-    color: colors.gray800,
     marginBottom: spacing.sm,
   },
   emptyDescription: {
-    fontSize: typography.fontSize.base,
-    color: colors.gray500,
     textAlign: 'center',
     lineHeight: typography.lineHeight.relaxed * typography.fontSize.base,
   },
@@ -288,8 +302,12 @@ const styles = StyleSheet.create({
     paddingVertical: 80,
   },
   loadingText: {
-    fontSize: typography.fontSize.base,
-    color: colors.gray500,
     fontStyle: 'italic',
+  },
+  filterTabActive: {
+    // Appliqué dynamiquement via le style inline
+  },
+  filterTabTextActive: {
+    // Appliqué dynamiquement via le style inline
   },
 });
