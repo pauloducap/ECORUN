@@ -55,7 +55,7 @@ interface EcoStat {
 export default function Home() {
   const router = useRouter();
   const { user } = useAuth();
-  const { colors } = useTheme();
+  const { colors, fontSizeMultiplier } = useTheme();
   const [userStats, setUserStats] = useState<UserStats>({
     totalActivities: 0,
     totalDistance: 0,
@@ -156,11 +156,11 @@ export default function Home() {
                 resizeMode="contain"
               />
             </View>
-            <Text style={styles.heroTitle}>EcoRun</Text>
-            <Text style={styles.heroSubtitle}>
+            <Text style={[styles.heroTitle, { fontSize: 36 * fontSizeMultiplier }]}>EcoRun</Text>
+            <Text style={[styles.heroSubtitle, { fontSize: typography.fontSize.lg * fontSizeMultiplier }]}>
               Courez pour votre santé et la planète
             </Text>
-            <Text style={styles.heroDescription}>
+            <Text style={[styles.heroDescription, { fontSize: typography.fontSize.base * fontSizeMultiplier }]}>
               Calculez vos économies de CO2 et votre gain d'espérance de vie 
               en choisissant la course ou le vélo plutôt que la voiture.
             </Text>
@@ -177,28 +177,28 @@ export default function Home() {
 
         {/* Impact Stats */}
         <View style={styles.statsSection}>
-          <Text style={styles.sectionTitle}>Votre Impact Écologique</Text>
+          <Text style={[styles.sectionTitle, { fontSize: typography.fontSize.xl * fontSizeMultiplier }]}>Votre Impact Écologique</Text>
           {loading ? (
-            <Text style={styles.loadingText}>Chargement des statistiques...</Text>
+            <Text style={[styles.loadingText, { fontSize: typography.fontSize.base * fontSizeMultiplier }]}>Chargement des statistiques...</Text>
           ) : (
             <View style={styles.statsGrid}>
               <View style={styles.statCard}>
                 <Text style={[styles.statValue, { color: colors.success }]}>
                   {userStats.totalCO2Saved.toFixed(1)}kg
                 </Text>
-                <Text style={styles.statLabel}>CO2 économisé</Text>
+                <Text style={[styles.statLabel, { fontSize: typography.fontSize.xs * fontSizeMultiplier }]}>CO2 économisé</Text>
               </View>
               <View style={styles.statCard}>
                 <Text style={[styles.statValue, { color: colors.error }]}>
                   {userStats.totalLifeGained.toFixed(0)}h
                 </Text>
-                <Text style={styles.statLabel}>Vie gagnée</Text>
+                <Text style={[styles.statLabel, { fontSize: typography.fontSize.xs * fontSizeMultiplier }]}>Vie gagnée</Text>
               </View>
               <View style={styles.statCard}>
                 <Text style={[styles.statValue, { color: colors.secondary }]}>
                   {userStats.totalActivities}
                 </Text>
-                <Text style={styles.statLabel}>Trajets verts</Text>
+                <Text style={[styles.statLabel, { fontSize: typography.fontSize.xs * fontSizeMultiplier }]}>Trajets verts</Text>
               </View>
             </View>
           )}
@@ -206,33 +206,33 @@ export default function Home() {
 
         {/* Activity Stats */}
         <View style={styles.statsSection}>
-          <Text style={styles.sectionTitle}>Vos Activités</Text>
+          <Text style={[styles.sectionTitle, { fontSize: typography.fontSize.xl * fontSizeMultiplier }]}>Vos Activités</Text>
           {loading ? (
-            <Text style={styles.loadingText}>Chargement des activités...</Text>
+            <Text style={[styles.loadingText, { fontSize: typography.fontSize.base * fontSizeMultiplier }]}>Chargement des activités...</Text>
           ) : (
             <View style={styles.activityStatsGrid}>
               <View style={styles.activityStatCard}>
                 <View style={[styles.activityStatIcon, { backgroundColor: colors.running }]}>
                   <Footprints size={20} color={colors.white} />
                 </View>
-                <Text style={styles.activityStatValue}>{userStats.runningActivities}</Text>
-                <Text style={styles.activityStatLabel}>Sessions course</Text>
+                <Text style={[styles.activityStatValue, { fontSize: typography.fontSize.xl * fontSizeMultiplier }]}>{userStats.runningActivities}</Text>
+                <Text style={[styles.activityStatLabel, { fontSize: typography.fontSize.xs * fontSizeMultiplier }]}>Sessions course</Text>
               </View>
               
               <View style={styles.activityStatCard}>
                 <View style={[styles.activityStatIcon, { backgroundColor: colors.biking }]}>
                   <Bike size={20} color={colors.white} />
                 </View>
-                <Text style={styles.activityStatValue}>{userStats.bikingActivities}</Text>
-                <Text style={styles.activityStatLabel}>Sessions vélo</Text>
+                <Text style={[styles.activityStatValue, { fontSize: typography.fontSize.xl * fontSizeMultiplier }]}>{userStats.bikingActivities}</Text>
+                <Text style={[styles.activityStatLabel, { fontSize: typography.fontSize.xs * fontSizeMultiplier }]}>Sessions vélo</Text>
               </View>
               
               <View style={styles.activityStatCard}>
                 <View style={[styles.activityStatIcon, { backgroundColor: colors.warning }]}>
                   <TrendingUp size={20} color={colors.white} />
                 </View>
-                <Text style={styles.activityStatValue}>{userStats.averagePerWeek.toFixed(1)}</Text>
-                <Text style={styles.activityStatLabel}>Moyenne/semaine</Text>
+                <Text style={[styles.activityStatValue, { fontSize: typography.fontSize.xl * fontSizeMultiplier }]}>{userStats.averagePerWeek.toFixed(1)}</Text>
+                <Text style={[styles.activityStatLabel, { fontSize: typography.fontSize.xs * fontSizeMultiplier }]}>Moyenne/semaine</Text>
               </View>
             </View>
           )}
@@ -240,15 +240,15 @@ export default function Home() {
 
         {/* Benefits */}
         <View style={styles.benefitsSection}>
-          <Text style={styles.sectionTitle}>Bénéfices EcoRun</Text>
+          <Text style={[styles.sectionTitle, { fontSize: typography.fontSize.xl * fontSizeMultiplier }]}>Bénéfices EcoRun</Text>
           {benefits.map((benefit, index) => (
             <View key={index} style={styles.benefitCard}>
               <View style={[styles.benefitIcon, { backgroundColor: benefit.color }]}>
                 <benefit.icon size={24} color={colors.white} />
               </View>
               <View style={styles.benefitContent}>
-                <Text style={styles.benefitTitle}>{benefit.title}</Text>
-                <Text style={styles.benefitDescription}>{benefit.description}</Text>
+                <Text style={[styles.benefitTitle, { fontSize: typography.fontSize.base * fontSizeMultiplier }]}>{benefit.title}</Text>
+                <Text style={[styles.benefitDescription, { fontSize: typography.fontSize.sm * fontSizeMultiplier }]}>{benefit.description}</Text>
               </View>
               <ChevronRight size={20} color={colors.gray400} />
             </View>
@@ -257,7 +257,7 @@ export default function Home() {
 
         {/* Activity Selection */}
         <View style={styles.activitySection}>
-          <Text style={styles.sectionTitle}>Choisir une Activité</Text>
+          <Text style={[styles.sectionTitle, { fontSize: typography.fontSize.xl * fontSizeMultiplier }]}>Choisir une Activité</Text>
           <View style={styles.activityGrid}>
             {Object.entries(ACTIVITY_CONFIG).map(([key, config]) => (
               <TouchableOpacity
@@ -267,8 +267,8 @@ export default function Home() {
                 activeOpacity={0.8}
               >
                 <config.icon size={32} color={colors.white} />
-                <Text style={styles.activityTitle}>{config.name}</Text>
-                <Text style={styles.activitySubtitle}>{config.co2Description}</Text>
+                <Text style={[styles.activityTitle, { fontSize: typography.fontSize.base * fontSizeMultiplier }]}>{config.name}</Text>
+                <Text style={[styles.activitySubtitle, { fontSize: typography.fontSize.xs * fontSizeMultiplier }]}>{config.co2Description}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -276,13 +276,13 @@ export default function Home() {
 
         {/* Formula Explanation */}
         <View style={styles.formulaSection}>
-          <Text style={styles.sectionTitle}>Comment ça marche ?</Text>
+          <Text style={[styles.sectionTitle, { fontSize: typography.fontSize.xl * fontSizeMultiplier }]}>Comment ça marche ?</Text>
           <View style={styles.formulaCard}>
             <View style={styles.formulaItem}>
               <Heart size={24} color={colors.error} />
               <View style={styles.formulaText}>
-                <Text style={styles.formulaTitle}>Espérance de vie</Text>
-                <Text style={styles.formulaDescription}>
+                <Text style={[styles.formulaTitle, { fontSize: typography.fontSize.base * fontSizeMultiplier }]}>Espérance de vie</Text>
+                <Text style={[styles.formulaDescription, { fontSize: typography.fontSize.sm * fontSizeMultiplier }]}>
                   1 heure d'activité = 7 heures de vie gagnées
                 </Text>
               </View>
@@ -291,8 +291,8 @@ export default function Home() {
             <View style={styles.formulaItem}>
               <Leaf size={24} color={colors.success} />
               <View style={styles.formulaText}>
-                <Text style={styles.formulaTitle}>Économies CO2</Text>
-                <Text style={styles.formulaDescription}>
+                <Text style={[styles.formulaTitle, { fontSize: typography.fontSize.base * fontSizeMultiplier }]}>Économies CO2</Text>
+                <Text style={[styles.formulaDescription, { fontSize: typography.fontSize.sm * fontSizeMultiplier }]}>
                   Basé sur la consommation moyenne d'une voiture (120g CO2/km)
                 </Text>
               </View>
@@ -307,7 +307,7 @@ export default function Home() {
             onPress={handleDebug}
             activeOpacity={0.8}
           >
-            <Text style={styles.startButtonText}>🔍 Debug Supabase</Text>
+            <Text style={[styles.startButtonText, { fontSize: typography.fontSize.lg * fontSizeMultiplier }]}>🔍 Debug Supabase</Text>
           </TouchableOpacity>
           
           <TouchableOpacity
@@ -316,10 +316,10 @@ export default function Home() {
             activeOpacity={0.8}
           >
             <Play size={24} color={colors.white} />
-            <Text style={styles.startButtonText}>Commencer une activité</Text>
+            <Text style={[styles.startButtonText, { fontSize: typography.fontSize.lg * fontSizeMultiplier }]}>Commencer une activité</Text>
           </TouchableOpacity>
           
-          <Text style={styles.ctaSubtext}>
+          <Text style={[styles.ctaSubtext, { fontSize: typography.fontSize.sm * fontSizeMultiplier }]}>
             Chaque kilomètre compte pour votre santé et l'environnement !
           </Text>
         </View>
@@ -357,23 +357,20 @@ const styles = StyleSheet.create({
     height: 60,
   },
   heroTitle: {
-    fontSize: 36,
     fontWeight: typography.fontWeight.extrabold,
     color: '#1f2937',
     marginBottom: spacing.sm,
   },
   heroSubtitle: {
-    fontSize: typography.fontSize.lg,
     fontWeight: typography.fontWeight.semibold,
     color: '#3b82f6',
     marginBottom: spacing.lg,
     textAlign: 'center',
   },
   heroDescription: {
-    fontSize: typography.fontSize.base,
     color: '#6b7280',
     textAlign: 'center',
-    lineHeight: typography.lineHeight.relaxed * typography.fontSize.base,
+    lineHeight: typography.lineHeight.relaxed,
     marginBottom: spacing.xxl,
   },
   heroImageContainer: {
@@ -397,7 +394,6 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.xxl,
   },
   sectionTitle: {
-    fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold,
     color: '#1f2937',
     marginBottom: spacing.lg,
@@ -430,7 +426,6 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xs,
   },
   statLabel: {
-    fontSize: typography.fontSize.xs,
     color: '#6b7280',
     textAlign: 'center',
   },
@@ -464,13 +459,11 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
   },
   activityStatValue: {
-    fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold,
     color: '#1f2937',
     marginBottom: spacing.xs,
   },
   activityStatLabel: {
-    fontSize: typography.fontSize.xs,
     color: '#6b7280',
     textAlign: 'center',
   },
@@ -508,15 +501,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   benefitTitle: {
-    fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.semibold,
     color: '#1f2937',
     marginBottom: spacing.xs,
   },
   benefitDescription: {
-    fontSize: typography.fontSize.sm,
     color: '#6b7280',
-    lineHeight: typography.lineHeight.normal * typography.fontSize.sm,
+    lineHeight: typography.lineHeight.normal,
   },
   activitySection: {
     paddingHorizontal: spacing.xl,
@@ -542,14 +533,12 @@ const styles = StyleSheet.create({
   },
   activityTitle: {
     color: '#ffffff',
-    fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.bold,
     marginTop: spacing.md,
     marginBottom: spacing.xs,
   },
   activitySubtitle: {
     color: '#ffffff',
-    fontSize: typography.fontSize.xs,
     opacity: 0.9,
     textAlign: 'center',
   },
@@ -582,15 +571,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   formulaTitle: {
-    fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.semibold,
     color: '#1f2937',
     marginBottom: spacing.xs,
   },
   formulaDescription: {
-    fontSize: typography.fontSize.sm,
     color: '#6b7280',
-    lineHeight: typography.lineHeight.normal * typography.fontSize.sm,
+    lineHeight: typography.lineHeight.normal,
   },
   ctaSection: {
     paddingHorizontal: spacing.xl,
@@ -618,18 +605,15 @@ const styles = StyleSheet.create({
   },
   startButtonText: {
     color: '#ffffff',
-    fontSize: typography.fontSize.lg,
     fontWeight: typography.fontWeight.bold,
     marginLeft: spacing.sm,
   },
   ctaSubtext: {
-    fontSize: typography.fontSize.sm,
     color: '#6b7280',
     textAlign: 'center',
-    lineHeight: typography.lineHeight.normal * typography.fontSize.sm,
+    lineHeight: typography.lineHeight.normal,
   },
   loadingText: {
-    fontSize: typography.fontSize.base,
     color: '#6b7280',
     textAlign: 'center',
     fontStyle: 'italic',
