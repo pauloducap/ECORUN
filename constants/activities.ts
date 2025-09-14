@@ -1,5 +1,5 @@
 import { Footprints, Bike } from 'lucide-react-native';
-import { colors } from '@/styles/colors';
+import colors from '@/styles/colors';
 
 export const ACTIVITY_CONFIG = {
   running: {
