@@ -284,11 +284,10 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: defaultColors.white,
+    backgroundColor: defaultColors.gray100,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: spacing.xxl,
-    shadowColor: defaultColors.black,
   },
   emptyTitle: {
     fontWeight: typography.fontWeight.semibold,
@@ -305,5 +304,11 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontStyle: 'italic',
+  },
+  filterTabActive: {
+    // Appliqué dynamiquement via le style inline
+  },
+  filterTabTextActive: {
+    // Appliqué dynamiquement via le style inline
   },
 });
