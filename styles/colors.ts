@@ -96,7 +96,7 @@ export const highContrastColors = {
   border: '#000000',
 } as const;
 
-const colors = {
+export default {
   // Primary colors
   primary: '#059669',
   primaryDark: '#047857',
@@ -135,5 +135,3 @@ const colors = {
   running: '#059669',
   biking: '#7c3aed',
 } as const;
-
-export default colors;
