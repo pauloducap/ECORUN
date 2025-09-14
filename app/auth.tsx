@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { User, Mail, Lock, LogIn, UserPlus } from 'lucide-react-native';
 import { useAuth } from '@/hooks/useAuth';
-import { colors } from '@/styles/colors';
+import colors from '@/styles/colors';
 import { spacing, borderRadius } from '@/styles/spacing';
 import { typography } from '@/styles/typography';
 

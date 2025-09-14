@@ -24,7 +24,7 @@ import {
 import { ACTIVITY_CONFIG } from '@/constants/activities';
 import { activityService } from '@/lib/supabase';
 import { useAuth } from '@/hooks/useAuth';
-import { colors } from '@/styles/colors';
+import colors from '@/styles/colors';
 import { spacing, borderRadius } from '@/styles/spacing';
 import { typography } from '@/styles/typography';
 import { debugSupabase } from '@/lib/debug';

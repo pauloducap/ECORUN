@@ -15,8 +15,8 @@ import { Activity as ActivityType } from '@/lib/supabase';
 import { ActivityCard } from '@/components/ActivityCard';
 import { activityService } from '@/lib/supabase';
 import { useAuth } from '@/hooks/useAuth';
-import { useTheme } from '@/hooks/useTheme';
-import { spacing, borderRadius } from '@/styles/spacing';
+import { useTheme } from '@/hooks/useTheme'; 
+import defaultColors from '@/styles/colors';
 import { typography } from '@/styles/typography';
 
 type FilterType = 'all' | 'running' | 'biking';
@@ -24,7 +24,7 @@ type FilterType = 'all' | 'running' | 'biking';
 export default function History() {
   const router = useRouter();
   const { user } = useAuth();
-  const { colors, fontSizeMultiplier } = useTheme();
+  const { fontSizeMultiplier, colors } = useTheme();
   const [activities, setActivities] = useState<ActivityType[]>([]);
   const [filteredActivities, setFilteredActivities] = useState<ActivityType[]>(
     []
