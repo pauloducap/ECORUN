@@ -27,7 +27,7 @@ import {
   filterSpeed 
 } from '@/utils/calculations';
 import { formatTime, formatPace, formatLifeGained } from '@/utils/formatters';
-import { colors } from '@/styles/colors';
+import colors from '@/styles/colors';
 import { spacing, borderRadius } from '@/styles/spacing';
 import { typography } from '@/styles/typography';
 
