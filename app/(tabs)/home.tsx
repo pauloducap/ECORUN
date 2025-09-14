@@ -24,7 +24,7 @@ import {
 import { ACTIVITY_CONFIG } from '@/constants/activities';
 import { activityService } from '@/lib/supabase';
 import { useAuth } from '@/hooks/useAuth';
-import defaultColors from '@/styles/colors';
+import { useTheme } from '@/hooks/useTheme';
 import { spacing, borderRadius } from '@/styles/spacing';
 import { typography } from '@/styles/typography';
 import { debugSupabase } from '@/lib/debug';
@@ -55,6 +55,7 @@ interface EcoStat {
 export default function Home() {
   const router = useRouter();
   const { user } = useAuth();
+  const { colors } = useTheme();
   const [userStats, setUserStats] = useState<UserStats>({
     totalActivities: 0,
     totalDistance: 0,
@@ -120,19 +121,19 @@ export default function Home() {
       icon: Leaf,
       title: 'Réduction CO2',
       description: 'Calculez vos économies de carbone en temps réel',
-      color: defaultColors.success,
+      color: colors.success,
     },
     {
       icon: Heart,
       title: 'Espérance de vie',
       description: '1h de course = 7h de vie gagnées',
-      color: defaultColors.error,
+      color: colors.error,
     },
     {
       icon: Car,
       title: 'Alternative voiture',
       description: 'Comparez vos trajets écologiques',
-      color: defaultColors.secondary,
+      color: colors.secondary,
     },
     {
       icon: Timer,
@@ -143,11 +144,11 @@ export default function Home() {
   ];
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: defaultColors.background }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Hero Section */}
         <View style={styles.heroSection}>
-          <View style={styles.heroContent}>
+          <View style={[styles.heroContent, { backgroundColor: colors.white }]}>
             <View style={styles.logoContainer}>
               <Image
                 source={require('../../assets/images/newlogo2.png')}
@@ -332,15 +333,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   heroSection: {
-    backgroundColor: defaultColors.white,
+    backgroundColor: 'transparent',
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.xxxl,
     borderBottomWidth: 1,
-    borderBottomColor: defaultColors.border,
+    borderBottomColor: 'rgba(0,0,0,0.1)',
   },
   heroContent: {
     alignItems: 'center',
     marginBottom: spacing.xxl,
+    borderRadius: borderRadius.lg,
+    padding: spacing.xl,
   },
   logoContainer: {
     width: 80,
@@ -356,19 +359,19 @@ const styles = StyleSheet.create({
   heroTitle: {
     fontSize: 36,
     fontWeight: typography.fontWeight.extrabold,
-    color: defaultColors.gray800,
+    color: '#1f2937',
     marginBottom: spacing.sm,
   },
   heroSubtitle: {
     fontSize: typography.fontSize.lg,
     fontWeight: typography.fontWeight.semibold,
-    color: defaultColors.primary,
+    color: '#3b82f6',
     marginBottom: spacing.lg,
     textAlign: 'center',
   },
   heroDescription: {
     fontSize: typography.fontSize.base,
-    color: defaultColors.gray500,
+    color: '#6b7280',
     textAlign: 'center',
     lineHeight: typography.lineHeight.relaxed * typography.fontSize.base,
     marginBottom: spacing.xxl,
@@ -376,7 +379,7 @@ const styles = StyleSheet.create({
   heroImageContainer: {
     borderRadius: borderRadius.lg,
     overflow: 'hidden',
-    shadowColor: defaultColors.black,
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 8,
@@ -396,7 +399,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold,
-    color: defaultColors.gray800,
+    color: '#1f2937',
     marginBottom: spacing.lg,
   },
   statsGrid: {
@@ -405,12 +408,12 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    backgroundColor: defaultColors.white,
+    backgroundColor: '#ffffff',
     borderRadius: borderRadius.md,
     padding: spacing.lg,
     marginHorizontal: spacing.xs,
     alignItems: 'center',
-    shadowColor: defaultColors.black,
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -419,7 +422,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     borderWidth: 1,
-    borderColor: defaultColors.border,
+    borderColor: '#e5e7eb',
   },
   statValue: {
     fontSize: typography.fontSize.xxl,
@@ -428,7 +431,7 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontSize: typography.fontSize.xs,
-    color: defaultColors.gray500,
+    color: '#6b7280',
     textAlign: 'center',
   },
   activityStatsGrid: {
@@ -437,11 +440,11 @@ const styles = StyleSheet.create({
   },
   activityStatCard: {
     flex: 0.32,
-    backgroundColor: defaultColors.white,
+    backgroundColor: '#ffffff',
     borderRadius: borderRadius.md,
     padding: spacing.lg,
     alignItems: 'center',
-    shadowColor: defaultColors.black,
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -450,7 +453,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     borderWidth: 1,
-    borderColor: defaultColors.border,
+    borderColor: '#e5e7eb',
   },
   activityStatIcon: {
     width: 32,
@@ -463,12 +466,12 @@ const styles = StyleSheet.create({
   activityStatValue: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold,
-    color: defaultColors.gray800,
+    color: '#1f2937',
     marginBottom: spacing.xs,
   },
   activityStatLabel: {
     fontSize: typography.fontSize.xs,
-    color: defaultColors.gray500,
+    color: '#6b7280',
     textAlign: 'center',
   },
   benefitsSection: {
@@ -478,11 +481,11 @@ const styles = StyleSheet.create({
   benefitCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: defaultColors.white,
+    backgroundColor: '#ffffff',
     borderRadius: borderRadius.md,
     padding: spacing.lg,
     marginBottom: spacing.md,
-    shadowColor: defaultColors.black,
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -491,7 +494,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     borderWidth: 1,
-    borderColor: defaultColors.border,
+    borderColor: '#e5e7eb',
   },
   benefitIcon: {
     width: 48,
@@ -507,12 +510,12 @@ const styles = StyleSheet.create({
   benefitTitle: {
     fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.semibold,
-    color: defaultColors.gray800,
+    color: '#1f2937',
     marginBottom: spacing.xs,
   },
   benefitDescription: {
     fontSize: typography.fontSize.sm,
-    color: defaultColors.gray500,
+    color: '#6b7280',
     lineHeight: typography.lineHeight.normal * typography.fontSize.sm,
   },
   activitySection: {
@@ -528,7 +531,7 @@ const styles = StyleSheet.create({
     borderRadius: borderRadius.lg,
     padding: spacing.xl,
     alignItems: 'center',
-    shadowColor: defaultColors.black,
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 8,
@@ -538,14 +541,14 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   activityTitle: {
-    color: defaultColors.white,
+    color: '#ffffff',
     fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.bold,
     marginTop: spacing.md,
     marginBottom: spacing.xs,
   },
   activitySubtitle: {
-    color: defaultColors.white,
+    color: '#ffffff',
     fontSize: typography.fontSize.xs,
     opacity: 0.9,
     textAlign: 'center',
@@ -555,10 +558,10 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.xxl,
   },
   formulaCard: {
-    backgroundColor: defaultColors.white,
+    backgroundColor: '#ffffff',
     borderRadius: borderRadius.md,
     padding: spacing.xl,
-    shadowColor: defaultColors.black,
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -567,7 +570,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     borderWidth: 1,
-    borderColor: defaultColors.border,
+    borderColor: '#e5e7eb',
   },
   formulaItem: {
     flexDirection: 'row',
@@ -581,12 +584,12 @@ const styles = StyleSheet.create({
   formulaTitle: {
     fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.semibold,
-    color: defaultColors.gray800,
+    color: '#1f2937',
     marginBottom: spacing.xs,
   },
   formulaDescription: {
     fontSize: typography.fontSize.sm,
-    color: defaultColors.gray500,
+    color: '#6b7280',
     lineHeight: typography.lineHeight.normal * typography.fontSize.sm,
   },
   ctaSection: {
@@ -598,11 +601,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: defaultColors.success,
+    backgroundColor: '#10b981',
     paddingVertical: spacing.lg,
     paddingHorizontal: spacing.xxxl,
     borderRadius: borderRadius.lg,
-    shadowColor: defaultColors.success,
+    shadowColor: '#10b981',
     shadowOffset: {
       width: 0,
       height: 8,
@@ -614,20 +617,20 @@ const styles = StyleSheet.create({
     minWidth: 250,
   },
   startButtonText: {
-    color: defaultColors.white,
+    color: '#ffffff',
     fontSize: typography.fontSize.lg,
     fontWeight: typography.fontWeight.bold,
     marginLeft: spacing.sm,
   },
   ctaSubtext: {
     fontSize: typography.fontSize.sm,
-    color: defaultColors.gray500,
+    color: '#6b7280',
     textAlign: 'center',
     lineHeight: typography.lineHeight.normal * typography.fontSize.sm,
   },
   loadingText: {
     fontSize: typography.fontSize.base,
-    color: defaultColors.gray500,
+    color: '#6b7280',
     textAlign: 'center',
     fontStyle: 'italic',
   },
