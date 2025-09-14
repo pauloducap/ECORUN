@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Map, Satellite, Mountain } from 'lucide-react-native';
 import { Position } from '@/lib/supabase';
-import { colors } from '@/styles/colors';
+import colors from '@/styles/colors';
 import { spacing, borderRadius } from '@/styles/spacing';
 import { typography } from '@/styles/typography';
 
