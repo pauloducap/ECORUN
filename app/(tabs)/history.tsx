@@ -18,6 +18,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from '@/hooks/useTheme'; 
 import defaultColors from '@/styles/colors';
 import { typography } from '@/styles/typography';
+import { spacing } from '@/styles/spacing';
 
 type FilterType = 'all' | 'running' | 'biking';
 
