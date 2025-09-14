@@ -528,7 +528,7 @@ const styles = StyleSheet.create({
     borderRadius: borderRadius.lg,
     padding: spacing.xl,
     alignItems: 'center',
-    shadowColor: colors.black,
+    shadowColor: defaultColors.black,
     shadowOffset: {
       width: 0,
       height: 8,

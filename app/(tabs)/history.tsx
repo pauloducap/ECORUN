@@ -306,10 +306,4 @@ const styles = StyleSheet.create({
   loadingText: {
     fontStyle: 'italic',
   },
-  filterTabActive: {
-    // Appliqué dynamiquement via le style inline
-  },
-  filterTabTextActive: {
-    // Appliqué dynamiquement via le style inline
-  },
 });
