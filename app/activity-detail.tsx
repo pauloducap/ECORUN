@@ -15,7 +15,7 @@ import { Activity as ActivityType, activityService } from '@/lib/supabase';
 import { ACTIVITY_CONFIG } from '@/constants/activities';
 import { MapView } from '@/components/MapView';
 import { formatTime, formatPace, formatDate } from '@/utils/formatters';
-import { colors } from '@/styles/colors';
+import colors from '@/styles/colors';
 import { spacing, borderRadius } from '@/styles/spacing';
 import { typography } from '@/styles/typography';
 import { useAuth } from '@/hooks/useAuth';
