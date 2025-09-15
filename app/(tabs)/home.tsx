@@ -20,6 +20,11 @@ import {
   Car,
   Footprints,
   Bike,
+  Trophy,
+  Star,
+  Target,
+  TreePine,
+  Zap,
 } from 'lucide-react-native';
 import { ACTIVITY_CONFIG } from '@/constants/activities';
 import { activityService } from '@/lib/supabase';
@@ -37,6 +42,18 @@ interface UserStats {
   runningActivities: number;
   bikingActivities: number;
   averagePerWeek: number;
+}
+
+interface Badge {
+  id: string;
+  title: string;
+  description: string;
+  icon: typeof Trophy;
+  threshold: number;
+  unit: string;
+  color: string;
+  unlocked: boolean;
+  progress: number;
 }
 
 interface Benefit {
@@ -66,6 +83,51 @@ export default function Home() {
     averagePerWeek: 0,
   });
   const [loading, setLoading] = useState(true);
+
+  // Badges avec progression
+  const badges: Badge[] = [
+    {
+      id: 'first_co2',
+      title: 'Éco-Débutant',
+      description: 'Premier kg de CO2 économisé',
+      icon: Leaf,
+      threshold: 1,
+      unit: 'kg CO2',
+      color: colors.success,
+      unlocked: userStats.totalCO2Saved >= 1,
+      progress: Math.min(userStats.totalCO2Saved / 1, 1) * 100,
+    },
+    {
+      id: 'eco_warrior',
+      title: 'Éco-Guerrier',
+      description: '10kg de CO2 économisés',
+      icon: Trophy,
+      threshold: 10,
+      unit: 'kg CO2',
+      color: '#f59e0b',
+      unlocked: userStats.totalCO2Saved >= 10,
+      progress: Math.min(userStats.totalCO2Saved / 10, 1) * 100,
+    },
+    {
+      id: 'distance_explorer',
+      title: 'Explorateur',
+      description: '7km parcourus au total',
+      icon: Target,
+      threshold: 7,
+      unit: 'km',
+      color: colors.secondary,
+      unlocked: userStats.totalDistance >= 7,
+      progress: Math.min(userStats.totalDistance / 7, 1) * 100,
+    },
+  ];
+
+  // Équivalents éducatifs du CO2 économisé
+  const co2Equivalents = {
+    kmVoiture: userStats.totalCO2Saved / 0.12, // 0.12kg CO2/km
+    arbresPlantes: userStats.totalCO2Saved / 0.021, // Un arbre absorbe ~21kg CO2/an ≈ 0.021kg/jour
+    heuresOrdinateur: userStats.totalCO2Saved / 0.0004, // Ordinateur ≈ 0.4kg CO2/1000h
+    repasVege: userStats.totalCO2Saved / 1.5, // Repas végé vs viande ≈ 1.5kg CO2 économisé
+  };
 
   useEffect(() => {
     loadUserStats();
@@ -200,6 +262,127 @@ export default function Home() {
                 </Text>
                 <Text style={styles.statLabel}>Trajets verts</Text>
               </View>
+            </View>
+          )}
+        </View>
+
+        {/* Impact CO2 Éducatif */}
+        <View style={styles.statsSection}>
+          <Text style={styles.sectionTitle}>
+            Votre Impact en Chiffres
+          </Text>
+          {loading ? (
+            <Text style={styles.loadingText}>
+              Chargement...
+            </Text>
+          ) : (
+            <View style={styles.impactCard}>
+              <View style={styles.impactHeader}>
+                <Leaf size={24} color={colors.success} />
+                <Text style={styles.impactTitle}>
+                  {userStats.totalCO2Saved.toFixed(1)}kg CO2 économisé, c'est équivalent à :
+                </Text>
+              </View>
+              
+              <View style={styles.equivalentsGrid}>
+                <View style={styles.equivalentItem}>
+                  <Car size={20} color={colors.error} />
+                  <Text style={styles.equivalentValue}>
+                    {co2Equivalents.kmVoiture.toFixed(0)} km
+                  </Text>
+                  <Text style={styles.equivalentLabel}>
+                    en voiture évités
+                  </Text>
+                </View>
+                
+                <View style={styles.equivalentItem}>
+                  <TreePine size={20} color={colors.success} />
+                  <Text style={styles.equivalentValue}>
+                    {co2Equivalents.arbresPlantes.toFixed(0)} jours
+                  </Text>
+                  <Text style={styles.equivalentLabel}>
+                    d'absorption d'un arbre
+                  </Text>
+                </View>
+              </View>
+              
+              <View style={styles.equivalentsGrid}>
+                <View style={styles.equivalentItem}>
+                  <Zap size={20} color={colors.warning} />
+                  <Text style={styles.equivalentValue}>
+                    {co2Equivalents.heuresOrdinateur.toFixed(0)}h
+                  </Text>
+                  <Text style={styles.equivalentLabel}>
+                    d'ordinateur économisées
+                  </Text>
+                </View>
+                
+                <View style={styles.equivalentItem}>
+                  <Heart size={20} color={colors.error} />
+                  <Text style={styles.equivalentValue}>
+                    {co2Equivalents.repasVege.toFixed(1)}
+                  </Text>
+                  <Text style={styles.equivalentLabel}>
+                    repas végé vs viande
+                  </Text>
+                </View>
+              </View>
+            </View>
+          )}
+        </View>
+
+        {/* Système de Badges */}
+        <View style={styles.statsSection}>
+          <Text style={styles.sectionTitle}>
+            Vos Achievements
+          </Text>
+          {loading ? (
+            <Text style={styles.loadingText}>
+              Chargement des badges...
+            </Text>
+          ) : (
+            <View style={styles.badgesContainer}>
+              {badges.map((badge) => (
+                <View key={badge.id} style={[styles.badgeCard, badge.unlocked && styles.badgeUnlocked]}>
+                  <View style={styles.badgeHeader}>
+                    <View style={[styles.badgeIcon, { backgroundColor: badge.unlocked ? badge.color : '#e5e7eb' }]}>
+                      <badge.icon size={20} color={badge.unlocked ? '#ffffff' : '#9ca3af'} />
+                    </View>
+                    <View style={styles.badgeInfo}>
+                      <Text style={[styles.badgeTitle, { 
+                        color: badge.unlocked ? '#1f2937' : '#9ca3af'
+                      }]}>
+                        {badge.title}
+                      </Text>
+                      <Text style={[styles.badgeDescription, { 
+                        color: badge.unlocked ? '#6b7280' : '#d1d5db'
+                      }]}>
+                        {badge.description}
+                      </Text>
+                    </View>
+                    {badge.unlocked && (
+                      <Star size={16} color={badge.color} />
+                    )}
+                  </View>
+                  
+                  <View style={styles.progressContainer}>
+                    <View style={styles.progressBar}>
+                      <View 
+                        style={[
+                          styles.progressFill, 
+                          { 
+                            width: `${badge.progress}%`,
+                            backgroundColor: badge.unlocked ? badge.color : '#d1d5db'
+                          }
+                        ]} 
+                      />
+                    </View>
+                    <Text style={styles.progressText}>
+                      {badge.unlocked ? 'Débloqué !' : `${badge.progress.toFixed(0)}% vers ${badge.threshold} ${badge.unit}`}
+                    </Text>
+                  </View>
+                </View>
+              ))}
             </View>
           )}
         </View>
@@ -633,5 +816,116 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     textAlign: 'center',
     fontStyle: 'italic',
+  },
+  impactCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: borderRadius.lg,
+    padding: spacing.xl,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  impactHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: spacing.lg,
+  },
+  impactTitle: {
+    fontWeight: typography.fontWeight.semibold,
+    color: '#1f2937',
+    marginLeft: spacing.md,
+    flex: 1,
+  },
+  equivalentsGrid: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: spacing.md,
+  },
+  equivalentItem: {
+    flex: 0.48,
+    alignItems: 'center',
+    backgroundColor: '#f9fafb',
+    borderRadius: borderRadius.md,
+    padding: spacing.lg,
+  },
+  equivalentValue: {
+    fontWeight: typography.fontWeight.bold,
+    color: '#1f2937',
+    marginTop: spacing.sm,
+    marginBottom: spacing.xs,
+  },
+  equivalentLabel: {
+    color: '#6b7280',
+    textAlign: 'center',
+  },
+  badgesContainer: {
+    gap: spacing.md,
+  },
+  badgeCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: borderRadius.md,
+    padding: spacing.lg,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  badgeUnlocked: {
+    borderColor: '#10b981',
+    shadowColor: '#10b981',
+    shadowOpacity: 0.2,
+  },
+  badgeHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: spacing.md,
+  },
+  badgeIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: borderRadius.xl,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: spacing.md,
+  },
+  badgeInfo: {
+    flex: 1,
+  },
+  badgeTitle: {
+    fontWeight: typography.fontWeight.semibold,
+    marginBottom: spacing.xs,
+  },
+  badgeDescription: {
+  },
+  progressContainer: {
+    marginTop: spacing.sm,
+  },
+  progressBar: {
+    height: 6,
+    backgroundColor: '#f3f4f6',
+    borderRadius: 3,
+    marginBottom: spacing.xs,
+  },
+  progressFill: {
+    height: '100%',
+    borderRadius: 3,
+  },
+  progressText: {
+    color: '#6b7280',
+    textAlign: 'center',
+    fontWeight: typography.fontWeight.medium,
   },
 });
