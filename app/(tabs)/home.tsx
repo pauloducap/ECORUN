@@ -125,8 +125,8 @@ export default function Home() {
   const co2Equivalents = {
     kmVoiture: userStats.totalCO2Saved / 0.12, // 0.12kg CO2/km
     arbresPlantes: userStats.totalCO2Saved / 0.021, // Un arbre absorbe ~21kg CO2/an ≈ 0.021kg/jour
-    heuresOrdinateur: userStats.totalCO2Saved / 0.0004, // Ordinateur ≈ 0.4kg CO2/1000h
-    repasVege: userStats.totalCO2Saved / 1.5, // Repas végé vs viande ≈ 1.5kg CO2 économisé
+    heuresOrdinateur: userStats.totalCO2Saved / 0.0004, // Ordinateur portable ≈ 0.4kg CO2/1000h (100W moyenne)
+    bouteillesPlastique: userStats.totalCO2Saved / 0.082, // Bouteille plastique ≈ 82g CO2 par bouteille
   };
 
   useEffect(() => {
@@ -320,10 +320,10 @@ export default function Home() {
                 <View style={styles.equivalentItem}>
                   <Heart size={20} color={colors.error} />
                   <Text style={styles.equivalentValue}>
-                    {co2Equivalents.repasVege.toFixed(1)}
+                    {co2Equivalents.bouteillesPlastique.toFixed(0)}
                   </Text>
                   <Text style={styles.equivalentLabel}>
-                    repas végé vs viande
+                    bouteilles plastique évitées
                   </Text>
                 </View>
               </View>
