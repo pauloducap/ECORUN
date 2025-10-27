@@ -1,4 +1,5 @@
 # EcoRun
+<img width="492" height="1069" alt="ecorunshot" src="https://github.com/user-attachments/assets/05f72ce9-d892-48fd-a5b4-c71026cdee08" />
 
 ## Description
 
